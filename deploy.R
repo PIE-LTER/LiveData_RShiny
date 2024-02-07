@@ -18,4 +18,5 @@ setAccountInfo(name = error_on_missing_name("SHINY_ACC_NAME"),
 # Deploy the application
 deployApp(appFiles = c("PIE_live_data_app.R", 
                        "CR1000XSeries_IBYC_raw.dat", 
-                       "CR1000XSeries_MFM_raw.dat"))
+                       "CR1000XSeries_MFM_raw.dat"),
+          forceUpdate = TRUE)
