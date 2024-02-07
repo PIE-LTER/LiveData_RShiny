@@ -16,8 +16,8 @@ setAccountInfo(name = error_on_missing_name("SHINY_ACC_NAME"),
                secret = error_on_missing_name("SECRET"))
 
 # Deploy the application
-deployApp(appFiles = c("PIE_live_data_app.R", 
+deployApp(appFiles = c("LiveData.R", 
                        "CR1000XSeries_IBYC_raw.dat", 
                        "CR1000XSeries_MFM_raw.dat"),
-          appPrimaryDoc = "PIE_live_data_app.R",
+          appPrimaryDoc = "LiveData.R",
           forceUpdate = TRUE)
