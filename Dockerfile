@@ -1,8 +1,8 @@
 FROM rocker/shiny:4.2.1
-RUN install2.r rsconnect tibble dplyr stringr rtweet htmltools lubridate bslib reactable
+RUN install2.r rsconnect dplyr lubridate ggplot2
 WORKDIR /home/LiveData
-COPY ui.R ui.R 
-COPY server.R server.R 
-COPY likes.rds likes.rds
+COPY PIE_live_data_app.R ui.R 
+COPY CR1000XSeries_IBYC_raw.dat CR1000XSeries_IBYC_raw.dat
+COPY CR1000XSeries_MFM_raw.dat CR1000XSeries_MFM_raw.dat
 COPY deploy.R deploy.R
 CMD Rscript deploy.R
