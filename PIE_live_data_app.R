@@ -5,7 +5,8 @@ library(ggplot2)
 
 ui <- fluidPage(
   titlePanel("Live Weather Data"),
-  h3("Please note that this data is provisional and is not checked for quality."),
+  h4("Please note that this data is provisional and is not checked for quality."),
+  h5(textOutput("update_ts")),
   fluidPage(tabsetPanel(
     tabPanel("Marshview Farm",
              dateRangeInput("MVdaterange", "Pick a Time Period",
@@ -108,6 +109,9 @@ server <- function(input, output, session) {
     ggplot(IBYC(), aes(ymd_hms(Timestamp), WindDir)) + geom_line() +
       labs(title = "Wind Direction", x = "Timestamp (EST)", y = "Wind Direction (degrees)") +
       theme_classic(base_size = 20)
+  })
+  output$update_ts <- renderText({
+    paste("Last Updated:", last(IBYC_raw$Timestamp), sep = " ")
   })
 }
 
