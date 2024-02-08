@@ -111,7 +111,7 @@ server <- function(input, output, session) {
       theme_classic(base_size = 20)
   })
   output$update_ts <- renderText({
-    paste("Last Updated:", last(IBYC_raw$Timestamp), sep = " ")
+    paste("Last Updated:", last(IBYC_raw$Timestamp), "EST", sep = " ")
   })
 }
 
