@@ -2,6 +2,7 @@ library(shiny)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(shinyBS)
 
 ui <- fluidPage(
   titlePanel("Live Weather Data"),
@@ -15,9 +16,9 @@ ui <- fluidPage(
                             end = now(),
                             min = now() - days(365),
                             max = now()),
-             plotOutput("tempplot"),
+             plotOutput("tempplot", hover = "plot_hover"),
              plotOutput("rhplot"),
-             plotOutput("precipplot")
+             plotOutput("precipplot"),
     ),
     tabPanel("Ipswich Bay Yacht Club",
              dateRangeInput("IBdaterange", "Pick a Time Period",
@@ -28,7 +29,7 @@ ui <- fluidPage(
                             max = now()),
              plotOutput("radarplot"),
              plotOutput("windplot"),
-             plotOutput("dirplot")
+             plotOutput("dirplot"),
     )
   ))
 )
