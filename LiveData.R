@@ -11,10 +11,10 @@ ui <- fluidPage(
     tabPanel("Marshview Farm",
              dateRangeInput("MVdaterange", "Pick a Time Period",
                             # value = today(),
-                            start = today() - 7,
-                            end = today(),
-                            min = today() - 365,
-                            max = today()),
+                            start = now() - days(7),
+                            end = now(),
+                            min = now() - days(365),
+                            max = now()),
              plotOutput("tempplot"),
              plotOutput("rhplot"),
              plotOutput("precipplot")
@@ -22,10 +22,10 @@ ui <- fluidPage(
     tabPanel("Ipswich Bay Yacht Club",
              dateRangeInput("IBdaterange", "Pick a Time Period",
                             # value = today(),
-                            start = today() - 7,
-                            end = today(),
-                            min = today() - 365,
-                            max = today()),
+                            start = now() - days(7),
+                            end = now(),
+                            min = now() - days(365),
+                            max = now()),
              plotOutput("radarplot"),
              plotOutput("windplot"),
              plotOutput("dirplot")
@@ -72,11 +72,11 @@ server <- function(input, output, session) {
   
   IBYC <- reactive({
     IBYC_raw %>% 
-    filter(Timestamp > input$IBdaterange[1] & Timestamp <= input$IBdaterange[2])
+    filter(Timestamp >= input$IBdaterange[1] & Timestamp <= input$IBdaterange[2])
   })  
   MFM <- reactive({
     MFM_raw %>% 
-      filter(Timestamp > input$MVdaterange[1] & Timestamp <= input$MVdaterange[2])
+      filter(Timestamp >= input$MVdaterange[1] & Timestamp <= input$MVdaterange[2])
   })   
   
   output$tempplot <- renderPlot({
