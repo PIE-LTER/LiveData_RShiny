@@ -2,6 +2,7 @@ library(shiny)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(clifro)
 
 ui <- fluidPage(
   titlePanel("Live Weather Data"),
@@ -105,10 +106,11 @@ server <- function(input, output, session) {
       theme_classic(base_size = 20)
   })
   output$dirplot <- renderPlot({
-    # with(IBYC(), windrose(Wind, WindDir))
-    ggplot(IBYC(), aes(ymd_hms(Timestamp), WindDir)) + geom_line() +
-      labs(title = "Wind Direction", x = "Timestamp (EST)", y = "Wind Direction (degrees)") +
-      theme_classic(base_size = 20)
+    with(IBYC(), windrose(Wind, WindDir, col_pal = "GnBu", ggtheme("classic"),
+         plot.title = "Wind Direction and Speed", base.size = 20))
+    # ggplot(IBYC(), aes(ymd_hms(Timestamp), WindDir)) + geom_line() +
+    #   labs(title = "Wind Direction", x = "Timestamp (EST)", y = "Wind Direction (degrees)") +
+    #   theme_classic(base_size = 20)
   })
   output$update_ts <- renderText({
     paste("Last Updated:", last(IBYC_raw$Timestamp), "EST", sep = " ")
