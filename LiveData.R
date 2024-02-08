@@ -2,7 +2,6 @@ library(shiny)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
-library(shinyBS)
 
 ui <- fluidPage(
   titlePanel("Live Weather Data"),
