@@ -29,7 +29,7 @@ ui <- fluidPage(
                             max = now()),
              plotOutput("radarplot"),
              plotOutput("windplot"),
-             plotOutput("dirplot"),
+             plotOutput("dirplot", width = "100%"),
     )
   ))
 )
@@ -108,13 +108,10 @@ server <- function(input, output, session) {
   output$dirplot <- renderPlot({
     with(IBYC(), windrose(Wind, WindDir, 
                           speed_cuts = c(2.5, 5, 7.5, 10),
-                          col_pal = "Greys", 
+                          col_pal = "Spectral", 
                           legend_title = "Wind Speed (m/s)")) +
       labs(title = "Wind Direction", x = NULL, y = NULL) +
       theme_minimal(base_size = 20)
-    # ggplot(IBYC(), aes(ymd_hms(Timestamp), WindDir)) + geom_line() +
-    #   labs(title = "Wind Direction", x = "Timestamp (EST)", y = "Wind Direction (degrees)") +
-    #   theme_classic(base_size = 20)
   })
   output$update_ts <- renderText({
     paste("Last Updated:", last(IBYC_raw$Timestamp), "EST", sep = " ")
