@@ -98,6 +98,9 @@ ui <- fluidPage(
         filter(Timestamp >= input$MVdaterange[1] & Timestamp <= input$MVdaterange[2])
     })   
     
+    (p <- ggplot(MFM_raw, aes(ymd_hms(Timestamp), Temp)) + geom_line())
+    ggplotly(p)
+    
     output$tempplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), Temp)) + geom_line() +
         labs(title = "Temperature", 
