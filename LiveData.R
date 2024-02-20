@@ -157,7 +157,10 @@ ui <- fluidPage(
                             col_pal = "Spectral", 
                             legend_title = "Wind Speed (m/s)")) +
         labs(x = NULL, y = NULL) +
-        theme_minimal(base_size = 20)
+        theme_minimal(base_size = 20) + 
+        theme(legend.position = "bottom", 
+              legend.text = element_text(size = 8),
+              legend.title = element_text(size = 10))
     })
     output$radarplot <- renderPlot({
       ggplot(IBYC(), aes(ymd_hms(Timestamp), Water_Level)) + geom_line() +
@@ -177,7 +180,10 @@ ui <- fluidPage(
                             col_pal = "Spectral", 
                             legend_title = "Wind Speed (m/s)")) +
         labs(x = NULL, y = NULL) +
-        theme_minimal(base_size = 20)
+        theme_minimal(base_size = 20) + 
+        theme(legend.position = "bottom", 
+              legend.text = element_text(size = 8),
+              legend.title = element_text(size = 10))
     })
     output$update_ts <- renderText({
       paste("Last Updated:", last(IBYC_raw$Timestamp), "EST", sep = " ")
