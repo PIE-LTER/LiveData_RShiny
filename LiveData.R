@@ -20,16 +20,24 @@ ui <- fluidPage(
                             max = now()),
              fluidRow(
                column(6,
-                      plotOutput("tempplot"),
-                      plotOutput("precipplot"),
-                      plotOutput("parplot"),
-                      plotOutput("wsplot")
+                      h3("Temperature"),
+                      plotOutput("tempplot", width = "100%"),
+                      h3("Precipitation"),
+                      plotOutput("precipplot", width = "100%"),
+                      h3("Photosynthetically Active Radiation"),
+                      plotOutput("parplot", width = "100%"),
+                      h3("Wind Speed"),
+                      plotOutput("wsplot", width = "100%")
                ),
                column(6,
-                      plotOutput("rhplot"),
-                      plotOutput("barplot"),
-                      plotOutput("radplot"),
-                      plotOutput("wdplot")
+                      h3("Relative Humidity"),
+                      plotOutput("rhplot", width = "100%"),
+                      h3("Barometric Pressure"),
+                      plotOutput("barplot", width = "100%"),
+                      h3("Shortwave Radiation"),
+                      plotOutput("radplot", width = "100%"),
+                      h3("Wind Direction"),
+                      plotOutput("wdplot", width = "100%")
                )
              )),
     tabPanel("Ipswich Bay Yacht Club",
@@ -39,12 +47,15 @@ ui <- fluidPage(
                             end = now(),
                             min = now() - days(365),
                             max = now()),
+             h3("Water Level"),
              plotOutput("radarplot"),
              fluidRow(
                column(6,
+                      h3("Wind Speed"),
                       plotOutput("windplot")
                ),
                column(6,
+                      h3("Wind Direction"),
                       plotOutput("dirplot", width = "100%")
                ),
              ))
@@ -98,55 +109,45 @@ ui <- fluidPage(
         filter(Timestamp >= input$MVdaterange[1] & Timestamp <= input$MVdaterange[2])
     })   
     
-    (p <- ggplot(MFM_raw, aes(ymd_hms(Timestamp), Temp)) + geom_line())
-    ggplotly(p)
-    
     output$tempplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), Temp)) + geom_line() +
-        labs(title = "Temperature", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Temperature (°C)") +
         theme_classic(base_size = 20)
     })
     output$rhplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), RH)) + geom_line() +
-        labs(title = "Relative Humidity", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Humidity (%)") +
         theme_classic(base_size = 20)
     })
     output$precipplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), Precip)) + geom_line() +
-        labs(title = "Precipitation", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Precipitation (mm)") +
         theme_classic(base_size = 20)
     })
     output$barplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), BAR)) + geom_line() +
-        labs(title = "Barometric Pressure", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Pressure (mbar)") +
         theme_classic(base_size = 20)
     })
     output$parplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), PAR)) + geom_line() +
-        labs(title = "Photosynthetically Active Radiation", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = expression(paste("PAR (umol/", m^2, "/s)"))) +
         theme_classic(base_size = 20)
     })    
     output$radplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), Pyranometer)) + geom_line() +
-        labs(title = "Shortwave Radiation", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = expression(paste("Shortwave Radiation (kW/", m^2, ")"))) +
         theme_classic(base_size = 20)
     })
     output$wsplot <- renderPlot({
       ggplot(MFM(), aes(ymd_hms(Timestamp), Wind)) + geom_line() +
-        labs(title = "Wind Speed", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Wind Speed (m/s)") +
         theme_classic(base_size = 20)
     })
@@ -155,20 +156,18 @@ ui <- fluidPage(
                             speed_cuts = c(2.5, 5, 7.5, 10),
                             col_pal = "Spectral", 
                             legend_title = "Wind Speed (m/s)")) +
-        labs(title = "Wind Direction", x = NULL, y = NULL) +
+        labs(x = NULL, y = NULL) +
         theme_minimal(base_size = 20)
     })
     output$radarplot <- renderPlot({
       ggplot(IBYC(), aes(ymd_hms(Timestamp), Water_Level)) + geom_line() +
-        labs(title = "Water Level", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Water Level (m)") +
         theme_classic(base_size = 20)
     })
     output$windplot <- renderPlot({
       ggplot(IBYC(), aes(ymd_hms(Timestamp), Wind)) + geom_line() +
-        labs(title = "Wind Speed", 
-             x = "Timestamp (EST)", 
+        labs(x = "Timestamp (EST)", 
              y = "Wind Speed (m/s)") +
         theme_classic(base_size = 20)
     })
@@ -177,7 +176,7 @@ ui <- fluidPage(
                             speed_cuts = c(2.5, 5, 7.5, 10),
                             col_pal = "Spectral", 
                             legend_title = "Wind Speed (m/s)")) +
-        labs(title = "Wind Direction", x = NULL, y = NULL) +
+        labs(x = NULL, y = NULL) +
         theme_minimal(base_size = 20)
     })
     output$update_ts <- renderText({
