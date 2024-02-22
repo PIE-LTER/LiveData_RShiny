@@ -3,7 +3,6 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 library(plotly)
-library(clifro)
 
 # setwd("C:/Users/pielter/LiveData_RShiny")
 
