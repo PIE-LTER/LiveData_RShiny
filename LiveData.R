@@ -38,7 +38,7 @@ ui <- fluidPage(
                       h3("Shortwave Radiation"),
                       plotlyOutput("radplot"),
                       h3("Wind Direction"),
-                      plotlyOutput("wdplot")
+                      plotlyOutput("wdplot", width = "100%")
                )
              )),
     tabPanel("Ipswich Bay Yacht Club",
