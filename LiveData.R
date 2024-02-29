@@ -3,7 +3,6 @@ library(dplyr)
 library(lubridate)
 # library(ggplot2)
 library(plotly)
-devtools::install_version("MASS", "7.3-51.1")  # Resolve incompatibility with shinyapps.io deployment 
 
 # setwd("C:/Users/pielter/LiveData_RShiny")
 
