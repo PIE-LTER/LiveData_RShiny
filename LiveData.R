@@ -242,7 +242,8 @@ server <- function(input, output, session) {
   output$wdplot <- renderPlotly({
     plot_ly(MFM_wr(), type = 'barpolar', r = ~r, theta = ~t, color = ~nms) %>%
       # layout(legend = l) %>%
-      layout(legend = list(orientation = 'h', title = list(text='<b>Wind Speed (m/s)</b>')),
+      layout(
+             legend = list(orientation = 'h', title = list(text='<b>Wind Speed (m/s)</b>')),
              polar = list(angularaxis = list(direction = "clockwise")))
   })
   output$radarplot <- renderPlotly({
