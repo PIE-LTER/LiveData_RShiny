@@ -8,8 +8,8 @@ library(plotly)
 
 #### UI ####
 ui <- fluidPage(
-  titlePanel("Live Weather Data"),
-  h4("Please note that this data is provisional and is not checked for quality."),
+  # titlePanel("Live Weather Data"),
+  # h4("Please note that this data is provisional and is not checked for quality."),
   h5(textOutput("update_ts")),
   fluidPage(tabsetPanel(
     tabPanel("Marshview Farm",
