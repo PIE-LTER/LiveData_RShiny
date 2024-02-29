@@ -1,7 +1,7 @@
 library(shiny)
 library(dplyr)
 library(lubridate)
-library(ggplot2)
+# library(ggplot2)
 library(plotly)
 
 # setwd("C:/Users/pielter/LiveData_RShiny")
@@ -170,46 +170,74 @@ server <- function(input, output, session) {
   })   
   
   output$tempplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, Temp)) + geom_line() +
-               labs(x = "Timestamp (EST)",
-                    y = "Temperature (°C)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~Temp, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Temperature (C)"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, Temp)) + geom_line() +
+    #            labs(x = "Timestamp (EST)",
+    #                 y = "Temperature (°C)") +
+    #            theme_classic())
   })
   output$rhplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, RH)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Humidity (%)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~RH, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Humidity (%)"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, RH)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Humidity (%)") +
+    #            theme_classic())
   })
   output$precipplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, Precip)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Precipitation (mm)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~Precip, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Precipitation (mm)"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, Precip)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Precipitation (mm)") +
+    #            theme_classic())
   })
   output$barplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, BAR)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Pressure (mbar)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~BAR, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Pressure (mbar)"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, BAR)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Pressure (mbar)") +
+    #            theme_classic())
   })
   output$parplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, PAR)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "PAR (umol/m<sup>2</sup>/s)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~PAR, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "PAR (umol/m<sup>2</sup>/s)"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, PAR)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "PAR (umol/m<sup>2</sup>/s)") +
+    #            theme_classic())
   })    
   output$radplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, Pyranometer)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Shortwave Radiation (kW/m<sup>2</sup>)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~Pyranometer, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Shortwave Radiation (kW/m<sup>2</sup>)"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, Pyranometer)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Shortwave Radiation (kW/m<sup>2</sup>)") +
+    #            theme_classic())
   })
   output$wsplot <- renderPlotly({
-    ggplotly(ggplot(MFM(), aes(Timestamp, Wind)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Wind Speed (m/s)") +
-               theme_classic())
+    plot_ly(MFM(), x = ~Timestamp, y = ~Wind, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Wind Speed (m/s))"))
+    # ggplotly(ggplot(MFM(), aes(Timestamp, Wind)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Wind Speed (m/s)") +
+    #            theme_classic())
   })
   output$wdplot <- renderPlotly({
     plot_ly(MFM_wr(), type = 'barpolar', r = ~r, theta = ~t, color = ~nms) %>%
@@ -218,16 +246,24 @@ server <- function(input, output, session) {
              polar = list(angularaxis = list(direction = "clockwise")))
   })
   output$radarplot <- renderPlotly({
-    ggplotly(ggplot(IBYC(), aes(Timestamp, Water_Level)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Water Level (m)") +
-               theme_classic())
+    plot_ly(IBYC(), x = ~Timestamp, y = ~Water_Level, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Water Level (m))"))
+    # ggplotly(ggplot(IBYC(), aes(Timestamp, Water_Level)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Water Level (m)") +
+    #            theme_classic())
   })
   output$windplot <- renderPlotly({
-    ggplotly(ggplot(IBYC(), aes(Timestamp, Wind)) + geom_line() +
-               labs(x = "Timestamp (EST)", 
-                    y = "Wind Speed (m/s)") +
-               theme_classic())
+    plot_ly(IBYC(), x = ~Timestamp, y = ~Wind, type = 'scatter', mode = 'lines',
+            line = list(color = "black")) %>% 
+      layout(xaxis = list(title = "Timestamp"),
+             yaxis = list (title = "Wind Speed (m/s))"))
+    # ggplotly(ggplot(IBYC(), aes(Timestamp, Wind)) + geom_line() +
+    #            labs(x = "Timestamp (EST)", 
+    #                 y = "Wind Speed (m/s)") +
+    #            theme_classic())
   })
   output$dirplot <- renderPlotly({
     plot_ly(IBYC_wr(), type = 'barpolar', r = ~r, theta = ~t, color = ~nms) %>%
