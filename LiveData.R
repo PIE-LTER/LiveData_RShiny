@@ -169,6 +169,14 @@ server <- function(input, output, session) {
       mutate(r = 100 * count/sum(count)) 
   })   
   
+  m <- list(
+    l = 0,
+    r = 0,
+    b = 20,
+    t = 20,
+    pad = 0
+  )
+  
   output$tempplot <- renderPlotly({
     plot_ly(MFM(), x = ~Timestamp, y = ~Temp, type = 'scatter', mode = 'lines',
             line = list(color = "black")) %>% 
@@ -243,7 +251,8 @@ server <- function(input, output, session) {
     plot_ly(MFM_wr(), type = 'barpolar', r = ~r, theta = ~t, color = ~nms) %>%
       # layout(legend = l) %>%
       layout(
-             legend = list(orientation = 'h', title = list(text='<b>Wind Speed (m/s)</b>')),
+        # margin = m,
+             legend = list(orientation = 'v', title = list(text='<b>Wind Speed (m/s)</b>')),
              polar = list(angularaxis = list(direction = "clockwise")))
   })
   output$radarplot <- renderPlotly({
@@ -268,8 +277,10 @@ server <- function(input, output, session) {
   })
   output$dirplot <- renderPlotly({
     plot_ly(IBYC_wr(), type = 'barpolar', r = ~r, theta = ~t, color = ~nms) %>%
-      layout(legend = list(orientation = 'h', title = list(text = '<b>Wind Speed (m/s)</b>')),
-             polar = list(angularaxis = list(direction = "clockwise")))
+      layout(
+        # margin = m,
+        legend = list(orientation = 'v', title = list(text = '<b>Wind Speed (m/s)</b>')),
+        polar = list(angularaxis = list(direction = "clockwise")))
   })
   output$update_ts <- renderText({
     paste("Last Updated:", last(IBYC_raw$Timestamp), "EST", sep = " ")
