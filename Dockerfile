@@ -1,4 +1,4 @@
-FROM rocker/shiny:latest
+FROM rocker/shiny:4.3.2
 RUN install2.r rsconnect dplyr lubridate plotly
 WORKDIR /home/LiveData
 COPY LiveData.R LiveData.R
