@@ -13,6 +13,8 @@ ui <- fluidPage(
   h5(textOutput("update_ts")),
   fluidPage(tabsetPanel(
     tabPanel("Marshview Farm",
+             h2("Marshview Farm"),
+             h4("PIE LTER weather station at Marshview Farm Field Station, Newbury, MA."),
              dateRangeInput("MVdaterange", "Pick a Time Period",
                             # value = today(),
                             start = now() - days(7),
@@ -42,6 +44,8 @@ ui <- fluidPage(
                )
              )),
     tabPanel("Ipswich Bay Yacht Club",
+             h2("Ipswich Bay Yacht Club"),
+             h4("PIE LTER weather station on the Ipswich Bay Yacht Club pier, Ipswich, MA."),
              dateRangeInput("IBdaterange", "Pick a Time Period",
                             # value = today(),
                             start = now() - days(7),
@@ -259,7 +263,7 @@ server <- function(input, output, session) {
     plot_ly(IBYC(), x = ~Timestamp, y = ~Water_Level, type = 'scatter', mode = 'lines',
             line = list(color = "black")) %>% 
       layout(xaxis = list(title = "Timestamp"),
-             yaxis = list (title = "Water Level (m))"))
+             yaxis = list (title = "Water Level (m)"))
     # ggplotly(ggplot(IBYC(), aes(Timestamp, Water_Level)) + geom_line() +
     #            labs(x = "Timestamp (EST)", 
     #                 y = "Water Level (m)") +
@@ -269,7 +273,7 @@ server <- function(input, output, session) {
     plot_ly(IBYC(), x = ~Timestamp, y = ~Wind, type = 'scatter', mode = 'lines',
             line = list(color = "black")) %>% 
       layout(xaxis = list(title = "Timestamp"),
-             yaxis = list (title = "Wind Speed (m/s))"))
+             yaxis = list (title = "Wind Speed (m/s)"))
     # ggplotly(ggplot(IBYC(), aes(Timestamp, Wind)) + geom_line() +
     #            labs(x = "Timestamp (EST)", 
     #                 y = "Wind Speed (m/s)") +
