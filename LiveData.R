@@ -57,11 +57,13 @@ ui <- fluidPage(
              fluidRow(
                column(6,
                       h3("Wind Speed"),
-                      plotlyOutput("windplot")
+                      h4("The wind sensor is currently down for repairs. We apologize for the inconvenience.")
+                      # plotlyOutput("windplot")
                ),
                column(6,
                       h3("Wind Direction"),
-                      plotlyOutput("dirplot", width = "100%")
+                      h4("The wind sensor is currently down for repairs. We apologize for the inconvenience.")
+                      # plotlyOutput("dirplot", width = "100%")
                ),
              ))
   )
@@ -269,6 +271,7 @@ server <- function(input, output, session) {
     #                 y = "Water Level (m)") +
     #            theme_classic())
   })
+  
   output$windplot <- renderPlotly({
     plot_ly(IBYC(), x = ~Timestamp, y = ~Wind, type = 'scatter', mode = 'lines',
             line = list(color = "black")) %>% 
@@ -292,3 +295,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
