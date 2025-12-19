@@ -57,13 +57,13 @@ ui <- fluidPage(
              fluidRow(
                column(6,
                       h3("Wind Speed"),
-                      h4("The wind sensor is currently down for repairs. We apologize for the inconvenience.")
-                      # plotlyOutput("windplot")
+                      # h4("The wind sensor is currently down for repairs. We apologize for the inconvenience.")
+                      plotlyOutput("windplot")
                ),
                column(6,
                       h3("Wind Direction"),
-                      h4("The wind sensor is currently down for repairs. We apologize for the inconvenience.")
-                      # plotlyOutput("dirplot", width = "100%")
+                      # h4("The wind sensor is currently down for repairs. We apologize for the inconvenience.")
+                      plotlyOutput("dirplot", width = "100%")
                ),
              ))
   )
